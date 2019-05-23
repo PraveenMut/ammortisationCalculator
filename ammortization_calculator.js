@@ -7,9 +7,15 @@ function calculate() {
   // PMT = 500,000 / [0.6588360732 / (0.002991666667)]
   // PMT = 500,000 / 220.223757034
   // PMT = 2,270.4180817459
-  var mathInterestRate = (interestRate / 100);
-  var interestOne = 1 + mathInterestRate;
-  var demoninator = (1 - Math.pow(interestOne, -loanTerm))/(mathInterestRate);
-  var resultant_value = presentValue / demoninator;
-  return resultant_value;
+  let compounding_periods = 12;
+  let mathInterestRate = (interestRate / 100) / compounding_periods;
+  let interestOne = 1 + mathInterestRate;
+  var demoninator = (1 - Math.pow(interestOne, -loanTerm*compounding_periods))/(mathInterestRate);
+  var resultantValue = presentValue / demoninator;
+  var resultNode = document.querySelector("#result");
+  resultNode.innerHTML = `$${resultantValue}`;
+}
+
+function ammortisationSchedule() {
+  
 }
