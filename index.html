@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ammortise this!</title>
+</head>
+<body>
+  <h2>Ammortisation Calculator</h2>
+  <p>Repayments Estimator</p>
+  <form id="value_inputs">
+    <div>
+    <label for="presentValue">Your Initial Loan Amount</label>
+    <input type="text" name="presentValue" id="presentValue">
+    </div>
+    <div>
+    <label for="interestRate">Interest Rate</label>
+    <input type="text" name="interestRate" id="interestRate">
+    </div>
+    <div>
+    <label for="loanTerm">Your Loan Term (in Years)</label>
+    <input type="text" name="loanTerm" id="loanTerm">
+    </div>
+    <div>
+    <input type="submit" onclick="calculate()" value="Calculate Repayments">
+    </div>
+  </form>
+  <div>
+    <p>Your Loan Repayments are:</p>
+    <p id="result"></p>
+  </div>
+  <script src="./ammortization_calculator.js"></script>
+</body>
+</html>
