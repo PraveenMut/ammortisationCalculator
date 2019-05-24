@@ -16,6 +16,28 @@ function calculate() {
   resultNode.innerHTML = `$${resultantValue}`;
 }
 
+function reset() {
+  document.querySelector("#presentValue").value = "";
+  document.querySelector("#interestRate").value = "";
+  document.querySelector("#loanTerm").value = "";
+  let resultant_val = document.querySelector("#result");
+  resultant_val.innerHTML = "";
+}
+
 function ammortisationSchedule() {
-  
+// 500,000 * 0.002991666667 = 1,495.8333335 --> after the first month
+// 500,000 + 1,495.8333 = 501,495.8333  ---> interest added after the first month
+// 501,495 - 2,000 = 499,495  --> repayment deducted
+  let ammortisedArray = [];
+  var loan_interest;
+  var ammortisedAmount;
+  let presentValue = Number(document.querySelector("#presentValue").value);
+  let interestRate = Number(document.querySelector("#interestRate").value);
+  let loanTerm = Number(document.querySelector("#loanTerm").value);
+  for(let i = 0; i < loanTerm; i++) {
+   loan_interest = presentValue * interestOne;
+   ammortisedAmount = presentValue - loan_interest;
+   ammortisedArray.push(ammortisedAmount);
+  }
+  return ammortisedArray;
 }
