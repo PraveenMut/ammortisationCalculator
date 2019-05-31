@@ -1,10 +1,24 @@
+let payment;
+let ammortisedBefore;
+
 function getData() {
   return {
     presentValue: Number(document.querySelector("#presentValue").value),
     interestRate: Number(document.querySelector("#interestRate").value),
     loanTerm:  Number(document.querySelector("#loanTerm").value),
+    additionalPayment: Math.floor(Number(document.querySelector('#additional-pmt').value)),
+    additionalPaymentsDiv: document.querySelector("#additional-payments-container"),
     compoundingPeriods: 12,
   }
+}
+
+const reducer = function(accumulator, currentValue) {
+  return accumulator + currentValue;
+}
+
+function addToElement(element, content) {
+  let el = document.querySelector(`#${element}`);
+  el.innerHTML = `${content};`
 }
 
 function calculate() {
@@ -34,12 +48,11 @@ function reset() {
   resultant_val.innerHTML = "";
 }
 
-function ammortisation_schedule() {
+function ammortisationSchedule(payment) {
   let ammortisedArray = [];
   let counter = [];
   let fetch_data = getData();
   var remainingBalance = fetch_data.presentValue;
-  let payment = calculate();
   let term = fetch_data.loanTerm * fetch_data.compoundingPeriods;
   let interestRate = fetch_data.interestRate / 100;
   mathInterestRate = ((interestRate)/fetch_data.compoundingPeriods);
@@ -90,7 +103,21 @@ var configuration = {
 
 function chart_run() {
   var ctx = document.getElementById('myChart');
-  console.log(ammortisation_schedule()[1]);
-  console.log(ammortisation_schedule()[0]);
   var myChart = new Chart(ctx, configuration);
+  myChart.update();
 }
+
+function paymentEstimator() {
+  ammortisationSchedule(calculate());
+  chart_run();
+}
+
+function paymentsadjusted() {
+  let ammortBeforeAry = ammortisationSchedule(calculate())[0];
+  let ammortAfterAry = ammortisationSchedule(getData().additionalPayment)[0];
+  let ammortDifference = ammortBeforeAry.reduce(reducer) - ammortAfterAry.reduce(reducer);
+  addToElement(ammortDifference);
+  getData().additionalPaymentsDiv.style.display = "block";
+  drawChart(ammortAfterAry[0]);
+};
+
